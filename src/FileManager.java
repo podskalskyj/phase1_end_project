@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,24 +18,30 @@ public class FileManager {
             System.out.println("1. List files in ascending order");
             System.out.println("2. File Operations");
             System.out.println("3. Exit");
-
-            int choice = menu.nextInt();
-
-            switch (choice) {
-                case 1:
-                    listFilesAscending(); //list of all files in ascending order, defined later
-                    break;
-                case 2:
-                    fileOperations(menu); //opening new menu with file operations
-                    break;
-                case 3:
-                    System.out.println("Exiting the application.");
-                    menu.close();
-                    System.exit(0);
-                default:
-                    System.out.println("Invalid choice. Please try again."); //when input isn't 1-3
+            
+            	try {
+            		int choice = menu.nextInt();
+            		switch (choice) {
+            			case 1:
+            				listFilesAscending(); //list of all files in ascending order, defined later
+            			break;
+            			case 2:
+            				fileOperations(menu); //opening new menu with file operations
+            			break;
+            			case 3:
+            				System.out.println("Exiting the application.");
+            				menu.close();
+            				System.exit(0);
+            			default:
+            				System.out.println("Invalid choice. Please try again."); //when input isn't 1-3
+            		}
+            	}
+            catch(InputMismatchException e) {
+                System.err.println("Wrong input! Input only  numbers please. Returned to main menu.");
+                menu.nextLine();
+            		}
+            	
             }
-        }
     }
 
     private static void listFilesAscending() { //defining choice number 1, files in ascending order
